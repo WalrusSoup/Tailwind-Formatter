@@ -1,10 +1,10 @@
 <idea-plugin>
-    <id>com.myoutdesk.headwind</id>
-    <name>Headwind</name>
-    <vendor email="#" url="#">Headwind</vendor>
+    <id>com.myoutdesk.tailwind_formatter</id>
+    <name>Tailwind Formatter</name>
+    <vendor email="#" url="#">Tailwind Formatter</vendor>
 
     <description><![CDATA[
-    Headwind
+    Tailwind-Formatter plugin for Intellij. Based on the Headwind project at heybourn/headwind.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
