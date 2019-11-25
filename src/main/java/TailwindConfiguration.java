@@ -13,7 +13,7 @@ import java.util.List;
 public class TailwindConfiguration implements ApplicationComponent, PersistentStateComponent<TailwindConfiguration.State> {
     public static class State {
         @Attribute("order")
-        public Collection<String> order;
+        public List<String> order;
 
         public State() {
             System.out.println("Getting default state");
