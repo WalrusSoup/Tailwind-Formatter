@@ -4,7 +4,7 @@
     <vendor email="#" url="#">Tailwind Formatter</vendor>
 
     <description><![CDATA[
-    Tailwind-Formatter plugin for Intellij. Based on the Headwind project at heybourn/headwind.
+    An opinionated tailwind class sorter, based on the Headwind project at <a href="https://github.com/heybourn/headwind">heybourn/headwind.</a>
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -14,14 +14,19 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <applicationService serviceImplementation="TailwindConfiguration"/>
     </extensions>
 
     <actions>
-        <action id="HeadwindAction" class="HeadwindAction" text="Format With Headwind"
+        <action id="TailwindAction" class="TailwindAction" text="Format With Headwind"
                 description="Format current file with Headwind">
             <add-to-group group-id="CodeFormatGroup" anchor="last"/>
             <keyboard-shortcut keymap="$default" first-keystroke="shift meta H"/>
         </action>
     </actions>
+    <application-components>
+        <component>
+            <implementation-class>TailwindConfiguration</implementation-class>
+        </component>
+    </application-components>
 </idea-plugin>

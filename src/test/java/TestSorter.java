@@ -10,12 +10,12 @@ public class TestSorter {
     @Test
     public void testSort()
     {
-        HeadwindUtility utility = new HeadwindUtility();
+        TailwindUtility utility = new TailwindUtility();
         List<String> originalOrder = new ArrayList<String>(utility.classOrder);
         List<String> shuffledOrder = utility.classOrder;
         Collections.shuffle(shuffledOrder);
         Assert.assertNotEquals(originalOrder, shuffledOrder);
-        shuffledOrder.sort(new HeadwindSorter());
+        shuffledOrder.sort(new TailwindSorter());
         Assert.assertEquals(originalOrder, shuffledOrder);
     }
 }
