@@ -1,6 +1,6 @@
 # Tailwind Formatter
 
-Tailwind formatter is a port of [Headwind](https://github.com/heybourn/headwind), an opinionated formatter for TailwindCSS.
+Tailwind formatter is a port of [Headwind](https://github.com/heybourn/headwind) for use with Intellij/Phpstorm/Webstorm. It enforces consistent ordering of classes by parsing your code and reprinting class tags to follow a given order.
 
 ## Usage
 Code -> Run Tailwind Formatter
