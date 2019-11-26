@@ -8,7 +8,7 @@ public class TailwindAction extends AnAction {
     TailwindParser parser = new TailwindParser();
 
     public TailwindAction() {
-        super("Run Headwind");
+        super("Run Tailwind Formatter");
     }
 
     public void actionPerformed(AnActionEvent event) {
