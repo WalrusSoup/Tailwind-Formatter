@@ -2,9 +2,9 @@
     <id>com.myoutdesk.tailwind_formatter</id>
     <name>Tailwind Formatter</name>
     <vendor email="#" url="https://myoutdesk.com">Tailwind Formatter</vendor>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <description>Automatically organizes TailwindCSS classes.</description>
-    <change-notes>Initial release of the Tailwind Formatter plugin for Intellij.</change-notes>
+    <change-notes>Initial release of the Tailwind Formatter plugin.</change-notes>
     <actions>
         <action id="TailwindAction" class="TailwindAction" text="Format Tailwind"
                 description="Format current file with Tailwind Formatter">
@@ -12,4 +12,5 @@
             <keyboard-shortcut keymap="$default" first-keystroke="shift meta H"/>
         </action>
     </actions>
+    <depends>com.intellij.modules.platform</depends>
 </idea-plugin>
