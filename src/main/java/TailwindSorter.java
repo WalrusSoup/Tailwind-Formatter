@@ -1,7 +1,7 @@
 import java.util.Comparator;
 
-public class HeadwindSorter implements Comparator<String> {
-    private HeadwindUtility utility = new HeadwindUtility();
+public class TailwindSorter implements Comparator<String> {
+    private TailwindUtility utility = new TailwindUtility();
 
     @Override
     public int compare(String s, String t1) {

@@ -2,24 +2,12 @@
     <id>com.myoutdesk.tailwind_formatter</id>
     <name>Tailwind Formatter</name>
     <vendor email="#" url="#">Tailwind Formatter</vendor>
-
-    <description><![CDATA[
-    Tailwind-Formatter plugin for Intellij. Based on the Headwind project at heybourn/headwind.
-    ]]></description>
-
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
-    <depends>com.intellij.modules.lang</depends>
-    -->
-
-    <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-    </extensions>
+    <version>1.0.0</version>
+    <description>Automatically organizes TailwindCSS classes.</description>
 
     <actions>
-        <action id="HeadwindAction" class="HeadwindAction" text="Format With Headwind"
-                description="Format current file with Headwind">
+        <action id="TailwindAction" class="TailwindAction" text="Format Tailwind"
+                description="Format current file with Tailwind Formatter">
             <add-to-group group-id="CodeFormatGroup" anchor="last"/>
             <keyboard-shortcut keymap="$default" first-keystroke="shift meta H"/>
         </action>

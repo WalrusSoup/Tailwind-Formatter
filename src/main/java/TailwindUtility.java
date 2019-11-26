@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HeadwindUtility {
+public class TailwindUtility {
     public List<String> classOrder;
 
-    public HeadwindUtility() {
+    public TailwindUtility() {
         classOrder = Arrays.asList(
                 "container",
                 "static",
@@ -658,6 +658,10 @@ public class HeadwindUtility {
                 "tracking-wide",
                 "tracking-wider",
                 "tracking-widest",
+                "text-left",
+                "text-center",
+                "text-right",
+                "text-justify",
                 "text-transparent",
                 "text-black",
                 "text-white",

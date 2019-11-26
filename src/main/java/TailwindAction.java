@@ -4,11 +4,11 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 
-public class HeadwindAction extends AnAction {
+public class TailwindAction extends AnAction {
     TailwindParser parser = new TailwindParser();
 
-    public HeadwindAction() {
-        super("Run Headwind");
+    public TailwindAction() {
+        super("Run Tailwind Formatter");
     }
 
     public void actionPerformed(AnActionEvent event) {

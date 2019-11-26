@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class TailwindParser {
     private final String regex = "\\bclass(?:Name)*\\s*=\\s*([\\\\\"\\']([_a-zA-Z0-9\\s\\-\\:]+)[\\\\\"\\'])";
-    private HeadwindSorter headwindSorter = new HeadwindSorter();
+    private TailwindSorter tailwindSorter = new TailwindSorter();
 
     public String processBody(String body)
     {
@@ -20,7 +20,7 @@ public class TailwindParser {
             String originalClassList = matcher.group(2);
             List<String> currentClasses = Arrays.asList(originalClassList.split(" "));
             // Sort the list of classes
-            currentClasses.sort(headwindSorter);
+            currentClasses.sort(tailwindSorter);
             // Create a linked hash set to remove duplicates
             LinkedHashSet<String> currentClassesWithoutDuplicates = new LinkedHashSet<String>(currentClasses);
             body = body.replace(targetReplacement, "\"" + String.join(" ", currentClassesWithoutDuplicates) + "\"");
