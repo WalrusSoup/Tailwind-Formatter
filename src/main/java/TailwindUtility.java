@@ -52,6 +52,7 @@ public class TailwindUtility {
                 "content-center",
                 "content-end",
                 "content-between",
+                "content-around",
                 "self-auto",
                 "self-start",
                 "self-center",
