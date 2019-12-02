@@ -11,7 +11,7 @@ Tailwind formatter is a port of [Headwind](https://github.com/heybourn/headwind)
 
 Code -> Run Tailwind Formatter
 
-Hotkey -> Shift + Ctrl + R
+Hotkey -> Shift + Ctrl + H
 
 ## Class Order
 The default class order is available under src/TailwindUtility. Custom classes will automatically be pushed to the back
