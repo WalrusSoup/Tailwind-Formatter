@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.myoutdesk'
-version '1.1-SNAPSHOT'
+version '1.2-TailwindFormatter'
 
 sourceCompatibility = 1.8
 
@@ -22,5 +22,7 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      Initial release of Tailwind-Formatter Plugin"""
+    2019-12-05: Fixed issue with tailwind classes containing a slash not being found
+    2019-11-26: Initial release of the Tailwind Formatter plugin.
+    """
 }

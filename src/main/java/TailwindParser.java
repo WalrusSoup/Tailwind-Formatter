@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TailwindParser {
-    private final String regex = "\\bclass(?:Name)*\\s*=\\s*([\\\\\"\\']([_a-zA-Z0-9\\s\\-\\:]+)[\\\\\"\\'])";
+    private final String regex = "\\bclass(?:Name)*\\s*=\\s*([\\\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\\\"\\'])";
     private TailwindSorter tailwindSorter = new TailwindSorter();
 
     public String processBody(String body)
