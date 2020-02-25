@@ -2,12 +2,10 @@
     <id>com.myoutdesk.tailwind_formatter</id>
     <name>Tailwind Formatter</name>
     <vendor email="#" url="https://myoutdesk.com">Tailwind Formatter</vendor>
-    <version>1.2.0</version>
+    <version>@version@</version>
     <description>Automatically organizes TailwindCSS classes.</description>
-    <change-notes>
-        2019-12-05: Fixed issue with tailwind classes containing a slash not being found
-        2019-11-26: Initial release of the Tailwind Formatter plugin.
-    </change-notes>
+    <idea-version since-build="192.5728.12"/>
+    <change-notes></change-notes>
     <actions>
         <action id="TailwindAction" class="TailwindAction" text="Format Tailwind"
                 description="Format current file with Tailwind Formatter">
