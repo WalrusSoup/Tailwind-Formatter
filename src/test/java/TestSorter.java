@@ -15,7 +15,7 @@ public class TestSorter {
         List<String> shuffledOrder = utility.classOrder;
         Collections.shuffle(shuffledOrder);
         Assert.assertNotEquals(originalOrder, shuffledOrder);
-        shuffledOrder.sort(new TailwindSorter(new TailwindUtility().classOrder));
+        shuffledOrder.sort(new TailwindSorter());
         Assert.assertEquals(originalOrder, shuffledOrder);
     }
 }
