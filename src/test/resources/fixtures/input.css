@@ -1,0 +1,21 @@
+.test-1 {
+    @apply c-unknown-3 container a-unknown-1 font-bold b-unknown-2 bg-blue-500;
+}
+
+.test-2 {
+    @apply  font-bold a-unknown-1 c-unknown-3 b-unknown-2  container bg-blue-500 ;
+}
+
+.test-3 {
+    @apply    font-bold a-unknown-1 c-unknown-3 random    b-unknown-2  container bg-blue-500  ;
+}
+
+.multiline-ignored {
+    @apply
+        unknown-and-ignored
+        container
+        a-unknown-1
+        font-bold
+        bg-blue-500
+    ;
+}
