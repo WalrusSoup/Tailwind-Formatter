@@ -23,6 +23,17 @@ of the class list. Duplicated classes will also be removed.
 ## Customizing Sort Order
 You can go to preferences and find TailwindFormatter. Here you will see an empty text area. If it is left empty we will assume the default order with tailwind-formatter. If you would like to change the order write one class per line. We sort from top to bottom.
 
+Example: 
+
+```
+bg-red-500
+p-4
+h-15
+mx-2
+```
+
+Note only the above 4 classes will  be sorted. If you would lke to import all the classes please click the button at the bottom of this dialog.
+
 
 ## License
 MIT
