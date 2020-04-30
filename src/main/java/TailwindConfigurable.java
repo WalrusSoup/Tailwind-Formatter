@@ -20,10 +20,16 @@ public class TailwindConfigurable implements Configurable, Configurable.NoScroll
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                TailwindUtility utility = new TailwindUtility();
-                customClassOrderTextArea.setText(String.join("\n", utility.classOrder));
+                if(customClassOrderTextArea.getText().isEmpty() || new TailwindConfigurableConfirmationDialog().showAndGet()) {
+                    importDefaultClasses();
+                }
             }
         });
+    }
+
+    public void importDefaultClasses() {
+        TailwindUtility utility = new TailwindUtility();
+        customClassOrderTextArea.setText(String.join("\n", utility.classOrder));
     }
 
     @Nls(capitalization = Nls.Capitalization.Title)
