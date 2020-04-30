@@ -14,4 +14,8 @@
         </action>
     </actions>
     <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService serviceImplementation="TailwindSettings"/>
+        <projectConfigurable instance="TailwindConfigurable" groupId="tools"/>
+    </extensions>
 </idea-plugin>

@@ -23,7 +23,7 @@ public class TailwindAction extends AnAction {
         final Document document = editor.getDocument();
         String body = parser.processBody(document.getText());
         WriteCommandAction.runWriteCommandAction(project, () -> {
-                document.setText(body);
+            document.setText(body);
         });
     }
 }
