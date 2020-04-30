@@ -16,6 +16,7 @@ public class TailwindParser {
         while (matcher.find()) {
             final boolean isApplyStatement;
             final String originalClassList;
+          
             // Grab the inner contents of the class list for deduplication and arranging
             if (matcher.group("classList1") != null && !matcher.group("classList1").isEmpty()) {
                 isApplyStatement = false;
@@ -32,7 +33,7 @@ public class TailwindParser {
 
             final List<String> currentClasses = Arrays.asList(originalClassList.trim().split(" +"));
             // Sort the list of classes
-            currentClasses.sort(tailwindSorter);
+            currentClasses.sort(sorter);
             // Create a linked hash set to remove duplicates
             final LinkedHashSet<String> currentClassesWithoutDuplicates = new LinkedHashSet<String>(currentClasses);
             body = body.replace(
