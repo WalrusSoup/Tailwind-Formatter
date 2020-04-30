@@ -8,6 +8,8 @@ Tailwind formatter is a port of [Headwind](https://github.com/heybourn/headwind)
 
 ## Usage
 ![Demo Gif](https://github.com/MyOutDeskLLC/Tailwind-Formatter/blob/master/demo.gif)
+![Demo With @apply Gif](https://github.com/MyOutDeskLLC/Tailwind-Formatter/blob/master/Sort_Apply_Classes.gif)
+
 
 Code -> Run Tailwind Formatter
 
@@ -16,6 +18,11 @@ Hotkey -> Shift + Ctrl + H
 ## Class Order
 The default class order is available under src/TailwindUtility. Custom classes will automatically be pushed to the back
 of the class list. Duplicated classes will also be removed.
+
+
+## Customizing Sort Order
+You can go to preferences and find TailwindFormatter. Here you will see an empty text area. If it is left empty we will assume the default order with tailwind-formatter. If you would like to change the order write one class per line. We sort from top to bottom.
+
 
 ## License
 MIT
