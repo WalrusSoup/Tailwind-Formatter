@@ -6,7 +6,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,13 +19,13 @@ public class TailwindSettings implements PersistentStateComponent<TailwindSettin
         return ServiceManager.getService(project, TailwindSettings.class);
     }
 
+    public void setCustomClassOrder(@NotNull String customClassOrder) {
+        this.customClassOrder = customClassOrder;
+    }
+
     @NotNull
     public String getCustomClassOrder() {
         return customClassOrder;
-    }
-
-    public void setCustomClassOrder(@NotNull String customClassOrder) {
-        this.customClassOrder = customClassOrder;
     }
 
     @NotNull
