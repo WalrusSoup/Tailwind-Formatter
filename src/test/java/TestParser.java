@@ -11,7 +11,7 @@ public class TestParser {
 
     @Test
     public void testProcessBody() {
-        TailwindParser parser = new TailwindParser();
+        TailwindParser parser = new TailwindParser(new TailwindSorter(new TailwindUtility().classOrder));
 
         Arrays.asList("html", "css").forEach(ext -> {
             String input = "";
