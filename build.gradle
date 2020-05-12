@@ -20,7 +20,7 @@ version = System.getenv("pluginVersion") ?: pluginVersion
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2019.3'
+    version 'LATEST-EAP-SNAPSHOT'
     downloadSources true
     patchPluginXml {
         version "$version"
