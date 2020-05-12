@@ -7,7 +7,11 @@ import java.util.regex.Pattern;
 public class TailwindParser {
     private final String classNamesRegex = "[_a-zA-Z0-9\\s\\-\\:\\/]+";
     private final String regex = "\\bclass(?:Name)*\\s*=\\s*(?:[\\\"\\'](?<classList1>" + classNamesRegex + ")[\\\"\\'])|@apply (?<classList2>" + classNamesRegex + ");";
-    private TailwindSorter tailwindSorter = new TailwindSorter();
+    private final TailwindSorter sorter;
+
+    public TailwindParser(TailwindSorter sorter) {
+        this.sorter = sorter;
+    }
 
     public String processBody(String body) {
         Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
@@ -32,7 +36,7 @@ public class TailwindParser {
 
             final List<String> currentClasses = Arrays.asList(originalClassList.trim().split(" +"));
             // Sort the list of classes
-            currentClasses.sort(tailwindSorter);
+            currentClasses.sort(sorter);
             // Create a linked hash set to remove duplicates
             final LinkedHashSet<String> currentClassesWithoutDuplicates = new LinkedHashSet<String>(currentClasses);
             body = body.replace(
