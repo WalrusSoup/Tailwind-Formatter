@@ -5,8 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TailwindParser {
-    private final String classNamesRegex = "[_a-zA-Z0-9\\s\\-\\:\\/]+";
-    private final String regex = "\\bclass(?:Name)*\\s*=\\s*(?:[\\\"\\'](?<classList1>" + classNamesRegex + ")[\\\"\\'])|@apply (?<classList2>" + classNamesRegex + ");";
+    private final String classNamesRegex = "[_a-zA-Z0-9\\s-:/]+";
+    private final String regex = "\\bclass(?:Name)*\\s*=\\s*(?<quotes>[\"'])(?<classList1>" + classNamesRegex + ")[\"']|@apply (?<classList2>" + classNamesRegex + ");";
     private final TailwindSorter sorter;
 
     public TailwindParser(TailwindSorter sorter) {
@@ -20,6 +20,7 @@ public class TailwindParser {
         while (matcher.find()) {
             final boolean isApplyStatement;
             final String originalClassList;
+            final String quotes = matcher.group("quotes");
             // Grab the inner contents of the class list for deduplication and arranging
             if (matcher.group("classList1") != null && !matcher.group("classList1").isEmpty()) {
                 isApplyStatement = false;
@@ -40,19 +41,19 @@ public class TailwindParser {
             // Create a linked hash set to remove duplicates
             final LinkedHashSet<String> currentClassesWithoutDuplicates = new LinkedHashSet<String>(currentClasses);
             body = body.replace(
-                    encloseClassList(originalClassList, isApplyStatement),
-                    encloseClassList(String.join(" ", currentClassesWithoutDuplicates), isApplyStatement)
+                    encloseClassList(originalClassList, isApplyStatement, quotes),
+                    encloseClassList(String.join(" ", currentClassesWithoutDuplicates), isApplyStatement, quotes)
             );
         }
 
         return body;
     }
 
-    private String encloseClassList(String classList, boolean isApplyStatement) {
+    private String encloseClassList(String classList, boolean isApplyStatement, String quotes) {
         if (isApplyStatement) {
             return "@apply " + classList + ";";
         }
 
-        return "\"" + classList + "\"";
+        return quotes + classList + quotes;
     }
 }

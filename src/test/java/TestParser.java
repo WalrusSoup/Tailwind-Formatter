@@ -6,12 +6,22 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 public class TestParser {
+    private final List<String> classOrder = Arrays.asList(
+        "first",
+        "sm:first",
+        "sec_ond",
+        "THIRD",
+        "lg:hover:last",
+        "group-focus:la-st",
+        "last"
+    );
 
     @Test
     public void testProcessBody() {
-        TailwindParser parser = new TailwindParser(new TailwindSorter(new TailwindUtility().classOrder));
+        TailwindParser parser = new TailwindParser(new TailwindSorter(this.classOrder));
 
         Arrays.asList("html", "css").forEach(ext -> {
             String input = "";
