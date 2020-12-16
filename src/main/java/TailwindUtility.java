@@ -4957,7 +4957,7 @@ public class TailwindUtility {
            "stroke-1",
            "stroke-2",
            "sr-only",
-           "not-sr-only",
-     );
+           "not-sr-only"
+        );
     }
 }
