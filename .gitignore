@@ -4,7 +4,7 @@
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache
-
+publishToken.txt
 # Workspace files are user-specific
 *.sublime-workspace
 

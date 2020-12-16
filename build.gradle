@@ -22,11 +22,17 @@ version = System.getenv("pluginVersion") ?: pluginVersion
 intellij {
     version 'LATEST-EAP-SNAPSHOT'
     downloadSources true
+    updateSinceUntilBuild true
     patchPluginXml {
         version "$version"
+        sinceBuild System.getenv("pluginSinceBuild") ?: sinceBuildP
         changeNotes file("$projectDir/docs/CHANGELOG.html").text
+        //        untilBuild System.getenv("pluginUntilBuild") ?: untilBuildP
     }
     publishPlugin {
-        token System.getenv("publishToken") ?: publishToken
+        token file("$projectDir/publishToken").text ?: System.getenv("publishToken") ?: publishToken
+    }
+    buildSearchableOptions {
+        enabled false
     }
 }
