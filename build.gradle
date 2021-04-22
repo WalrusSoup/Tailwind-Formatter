@@ -25,9 +25,7 @@ intellij {
     updateSinceUntilBuild true
     patchPluginXml {
         version "$version"
-        sinceBuild System.getenv("pluginSinceBuild") ?: sinceBuildP
         changeNotes file("$projectDir/docs/CHANGELOG.html").text
-        //        untilBuild System.getenv("pluginUntilBuild") ?: untilBuildP
     }
     publishPlugin {
         token file("$projectDir/publishToken").text ?: System.getenv("publishToken") ?: publishToken
