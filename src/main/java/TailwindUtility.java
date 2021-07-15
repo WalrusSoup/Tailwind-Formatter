@@ -3969,8 +3969,7 @@ public class TailwindUtility {
                 "divide-y",
                 "divide-y-reverse",
                 "divide-x-reverse",
-
-                ""divide - opacity - 0",
+                "divide-opacity-0",
                 "divide-opacity-5",
                 "divide-opacity-10",
                 "divide-opacity-20",
