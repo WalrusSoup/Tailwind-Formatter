@@ -24,6 +24,7 @@ intellij {
     downloadSources true
     updateSinceUntilBuild true
     patchPluginXml {
+        untilBuild = "213.*"
         version "$version"
         changeNotes file("$projectDir/docs/CHANGELOG.html").text
     }
