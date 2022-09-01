@@ -4,45 +4,50 @@ import java.util.List;
 
 public class TailwindSorter implements Comparator<String> {
     private final List<String> classOrder;
+    private final int variantsStartAt;
     private final int lastPosition;
 
     private final List<String> variantOrder = Arrays.asList(
-            "first",
-            "last",
-            "odd",
-            "even",
-            "visited",
-            "checked",
-            "empty",
-            "read-only",
-            "group-hover",
-            "group-focus",
-            "focus-within",
-            "hover",
-            "focus",
-            "focus-visible",
-            "active",
-            "disabled",
-            "xs",
-            "sm",
-            "md",
-            "lg",
-            "xl",
-            "2xl",
-            "3xl"
+        "first",
+        "last",
+        "odd",
+        "even",
+        "visited",
+        "checked",
+        "empty",
+        "read-only",
+        "group-hover",
+        "group-focus",
+        "focus-within",
+        "hover",
+        "focus",
+        "focus-visible",
+        "active",
+        "disabled",
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl",
+        "4xl",
+        "5xl"
     );
 
     public TailwindSorter(List<String> classOrder)
     {
         this.classOrder = classOrder;
-        this.lastPosition = classOrder.size();
+        this.variantsStartAt = classOrder.size();
+        this.lastPosition = this.variantsStartAt + this.variantOrder.size();
     }
 
     @Override
     public int compare(String s, String t1)
     {
-        int positionS = classOrder.indexOf(removeVariant(s)) + offsetVariant(s);
-        int positionT1 = classOrder.indexOf(removeVariant(t1)) + offsetVariant(t1);
+        int positionS = calculateProperOrder(s);
+        int positionT1 = calculateProperOrder(t1);
+
         if(positionS == -1) {
             positionS = lastPosition;
         }
@@ -52,33 +57,36 @@ public class TailwindSorter implements Comparator<String> {
         return positionS - positionT1;
     }
 
-    /**
-     * Returns true if a variant is detected within this string
-     *
-     * @param className string class to be checked
-     *
-     * @return if a variant was detected at the start of the string, returns true
-     */
-    public int offsetVariant(String className) {
-        if(className.contains("dark:")) {
-            className = className.replace("dark:", "");
+    // If the class contains a variant, use the variant order
+    // Otherwise, use the default class order as they appear in the CSS (pre-generated)
+    public int calculateProperOrder(String className)
+    {
+        if(className.contains(":")) {
+            return orderByVariant(className);
         }
 
-        // If there is still a variant here, pull out the variant and see what natural order it shoudl be included in
-        return variantOrder.indexOf(className.substring(0, className.lastIndexOf(":")));
+        return classOrder.indexOf(className);
     }
 
     /**
-     * Removes the variant to check the original class location in the output
+     * Variants are strange because they have their own order. Instead of generating an even more massive tailwind file,
+     * we can try to detect it and leverage the order of variants given to us in the tailwind config file to sort them.
      *
-     * @return string
+     * @param className string class to be checked
      */
-    public String removeVariant(String originalClassName)
-    {
-        int trimVariantAt = originalClassName.lastIndexOf(":");
-        if(trimVariantAt == -1) {
-            return originalClassName;
+    public int orderByVariant(String className) {
+        int variantLocation = className.lastIndexOf(":");
+        // If we see no variants, just return 0
+        if(variantLocation == -1) {
+            return 0;
         }
-        return originalClassName.substring(trimVariantAt);
+        // fish out the first variant to use as an anchor point
+        String[] variants = className.split(":");
+        if(variants.length >= 1)  {
+            return variantsStartAt + variantOrder.indexOf(variants[0]);
+        }
+
+        // If we have no ID on the variant, return
+        return variantsStartAt;
     }
 }

@@ -1,9 +1,9 @@
 .test-1 {
-    @apply first sm:first sec_ond THIRD lg:hover:last group-focus:la-st last unknown2 unknown1;
+    @apply first sec_ond THIRD last group-focus:la-st sm:first lg:hover:last unknown2 unknown1;
 }
 
 .test-2 {
-    @apply first sm:first sec_ond THIRD lg:hover:last group-focus:la-st last unknown2 unknown1;
+    @apply first sec_ond THIRD last group-focus:la-st sm:first lg:hover:last unknown2 unknown1;
 }
 
 .multiline-ignored {

@@ -31,7 +31,7 @@ fs.readFileSync('classes.css', 'utf-8').split('\n').forEach(line => {
 	if(writeOut) {
 		let finalClassName = line.replace(/\./g, '').replace(/{/g, '').replace(/}/g, '').replace(/\\/g, '').trim();
 		if(finalClassName !== '') {
-			classesInOrder.push(`"${finalClassName}",`);
+			classesInOrder.push(`${finalClassName}`);
 		}
 	}
 })
