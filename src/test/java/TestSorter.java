@@ -23,6 +23,19 @@ public class TestSorter {
     }
 
     @Test
+    public void testSortingWithFlex()
+    {
+        String input = "flex items-end justify-center p-4 text-center sm:items-center sm:p-0 min-h-full";
+        String expected = "flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0";
+
+        TailwindSorter sorter = new TailwindSorter((new TailwindUtility().classOrder));
+        List<String> classes = Arrays.asList(input.split(" "));
+        classes.sort(sorter);
+
+        Assert.assertEquals(expected, String.join(" ", classes));
+    }
+
+    @Test
     public void testSort()
     {
         // Cap this at 400 for test performance

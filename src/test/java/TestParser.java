@@ -21,6 +21,7 @@ public class TestParser {
 
     @Test
     public void testProcessBody() {
+        // TODO: This does not respect th custom order set above
         TailwindParser parser = new TailwindParser(new TailwindSorter(this.classOrder));
 
         Arrays.asList("html", "css").forEach(ext -> {
@@ -36,6 +37,23 @@ public class TestParser {
 
             Assert.assertEquals(expected, parser.processBody(input));
         });
+    }
+
+    @Test
+    public void testProcessingVue()
+    {
+        TailwindParser parser = new TailwindParser(new TailwindSorter((new TailwindUtility()).classOrder));
+        String input = "";
+        String expected = "";
+
+        try {
+            input = readFixtureFile("input.vue");
+            expected = readFixtureFile("expected.vue");
+        } catch (IOException | URISyntaxException e) {
+            Assert.fail("Could not load fixture file: " + e);
+        }
+
+        Assert.assertEquals(expected, parser.processBody(input));
     }
 
     private String readFixtureFile(String file) throws IOException, URISyntaxException {
