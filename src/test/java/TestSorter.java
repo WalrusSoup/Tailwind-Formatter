@@ -15,7 +15,10 @@ public class TestSorter {
         // This expected order is per the official docs & tested via play.tailwindcss.com
         String expectedOrder = "container mx-auto bg-blue-500 py-4 dark:bg-blue-600 sm:bg-blue-700 md:bg-blue-800 lg:bg-blue-900 xl:bg-blue-200";
 
-        TailwindSorter sorter = new TailwindSorter((new TailwindUtility().classOrder));
+        TailwindUtility utility = new TailwindUtility();
+        utility.loadDefaultClassOrder();
+
+        TailwindSorter sorter = new TailwindSorter(utility.classOrder, false);
         List<String> classes = Arrays.asList(outOfOrderVariants.split(" "));
         classes.sort(sorter);
 
@@ -28,24 +31,13 @@ public class TestSorter {
         String input = "flex items-end justify-center p-4 text-center sm:items-center sm:p-0 min-h-full";
         String expected = "flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0";
 
-        TailwindSorter sorter = new TailwindSorter((new TailwindUtility().classOrder));
+        TailwindUtility utility = new TailwindUtility();
+        utility.loadDefaultClassOrder();
+
+        TailwindSorter sorter = new TailwindSorter(utility.classOrder, false);
         List<String> classes = Arrays.asList(input.split(" "));
         classes.sort(sorter);
 
         Assert.assertEquals(expected, String.join(" ", classes));
-    }
-
-    @Test
-    public void testSort()
-    {
-        // Cap this at 400 for test performance
-//        int maxListSize = 400;
-//        TailwindUtility utility = new TailwindUtility();
-//        List<String> originalOrder = new ArrayList<String>(utility.classOrder.subList(0, maxListSize));
-//        List<String> shuffledOrder = utility.classOrder.subList(0, maxListSize);
-//        Collections.shuffle(shuffledOrder);
-//        Assert.assertNotEquals(originalOrder, shuffledOrder);
-//        shuffledOrder.sort(new TailwindSorter(new TailwindUtility().classOrder.subList(0, maxListSize)));
-//        Assert.assertEquals(originalOrder, shuffledOrder);
     }
 }
