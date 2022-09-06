@@ -27,6 +27,7 @@ public class TailwindSorter implements Comparator<String> {
         "focus-visible",
         "active",
         "disabled",
+        "dark",
         "xs",
         "sm",
         "md",
@@ -81,6 +82,12 @@ public class TailwindSorter implements Comparator<String> {
      * Variants are strange because they have their own order. Instead of generating an even more massive tailwind file,
      * we can try to detect it and leverage the order of variants given to us in the tailwind config file to sort them.
      *
+     * Variants also have order within them, so when we fish out a variant also add the original class offset to it
+     * This ensures that sm:px-2 is after things such as sm:bg-red-500, which is the way tailwind prefers it.
+     * It's a little confusing to add the class order size, but it's the only way to make sure the variants AND the classes don't run over each other.
+     * Open to ideas there
+     *
+     *
      * @param className string class to be checked
      */
     public int orderByVariant(String className)
@@ -93,7 +100,7 @@ public class TailwindSorter implements Comparator<String> {
         // fish out the first variant to use as an anchor point
         String[] variants = className.split(":");
         if(variants.length >= 1)  {
-            return variantsStartAt + variantOrder.indexOf(variants[0]);
+            return variantsStartAt + (variantOrder.indexOf(variants[0]) * this.classOrder.size()) + calculateProperOrder(variants[1]);
         }
 
         // If we have no ID on the variant, return

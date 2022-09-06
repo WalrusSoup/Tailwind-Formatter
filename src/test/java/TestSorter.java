@@ -40,4 +40,21 @@ public class TestSorter {
 
         Assert.assertEquals(expected, String.join(" ", classes));
     }
+
+    @Test
+    public void testSortingVariantsAccordingToPrimaryClass()
+    {
+        // According to the default order, technically px-0 should be before text-left, not after
+        String input = "sm:bg-red-500 sm:text-left sm:px-0 sm:rounded-lg";
+        String expected = "sm:rounded-lg sm:bg-red-500 sm:px-0 sm:text-left";
+
+        TailwindUtility utility = new TailwindUtility();
+        utility.loadDefaultClassOrder();
+
+        TailwindSorter sorter = new TailwindSorter(utility.classOrder, false);
+        List<String> classes = Arrays.asList(input.split(" "));
+        classes.sort(sorter);
+
+        Assert.assertEquals(expected, String.join(" ", classes));
+    }
 }
