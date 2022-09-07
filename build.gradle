@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.13'
+    id 'org.jetbrains.intellij' version '1.5.2'
 }
 
 group 'com.myoutdesk'
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 
@@ -20,18 +20,18 @@ version = System.getenv("pluginVersion") ?: pluginVersion
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version 'LATEST-EAP-SNAPSHOT'
-    downloadSources true
-    updateSinceUntilBuild true
+    version='LATEST-EAP-SNAPSHOT'
+    downloadSources=true
+    updateSinceUntilBuild=true
     patchPluginXml {
-        untilBuild = "213.*"
-        version "$version"
-        changeNotes file("$projectDir/docs/CHANGELOG.html").text
+        untilBuild = "223.*"
+        version="$version"
+        changeNotes=file("$projectDir/docs/CHANGELOG.html").text
     }
     publishPlugin {
-        token file("$projectDir/publishToken").text ?: System.getenv("publishToken") ?: publishToken
+        token=file("$projectDir/publishToken").text ?: System.getenv("publishToken") ?: publishToken
     }
     buildSearchableOptions {
-        enabled false
+        enabled=false
     }
 }
