@@ -206,3 +206,7 @@ hs_err_pid*
 .idea/.gitignore
 .idea/misc.xml
 .idea/vcs.xml
+
+tailwind/node_modules
+publishToken
+tailwind/classes.css
