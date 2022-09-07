@@ -1,7 +1,3 @@
-# Warning: This project has been deprecated.
-
-Tailwind now supports first-party sorting via their prettier plugin [which can be found here](https://github.com/tailwindlabs/prettier-plugin-tailwindcss). We appreciate all the support and downloads, but moving to that is a more sustainable solution for everyone moving forward.
-
 # Tailwind Formatter
 
 Tailwind formatter is a port of [Headwind](https://github.com/heybourn/headwind) for use with Intellij/Phpstorm/Webstorm. It enforces consistent ordering of classes by parsing your code and reprinting class tags to follow a given order.
