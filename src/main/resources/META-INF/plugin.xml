@@ -1,17 +1,33 @@
-<idea-plugin url="https://github.com/MyOutDeskLLC/Tailwind-Formatter">
-    <id>com.myoutdesk.tailwind_formatter</id>
-    <name>Tailwind Formatter</name>
-    <vendor email="#" url="https://myoutdesk.com">Tailwind Formatter</vendor>
-    <version>@version@</version>
-    <description>Automatically organizes TailwindCSS classes.</description>
-    <idea-version since-build="192.5728.12"/>
-    <change-notes></change-notes>
-    <actions>
-        <action id="TailwindAction" class="TailwindAction" text="Format Tailwind"
-                description="Format current file with Tailwind Formatter">
-            <add-to-group group-id="CodeFormatGroup" anchor="last"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="shift meta H"/>
-        </action>
-    </actions>
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.github.walrussoup.tailwindformatternext</id>
+    <name>tailwind-formatter-next</name>
+    <vendor>walrussoup</vendor>
+
     <depends>com.intellij.modules.platform</depends>
+
+    <!--
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.github.walrussoup.tailwindformatternext.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.github.walrussoup.tailwindformatternext.services.MyProjectService"/>
+    </extensions>
+
+    <applicationListeners>
+        <listener class="com.github.walrussoup.tailwindformatternext.listeners.MyProjectManagerListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+    -->
+
+    <actions>
+        <group id="org.intellij.sdk.action.GroupedActions"
+               popup="true"
+               text="Tailwind Formatter"
+               icon="com.github.walrussoup.tailwindformatternext.icons.TailwindFormatterIcons.DefaultIcon">
+            <add-to-group group-id="CodeFormatGroup" anchor="last"/>
+            <action id="TailwindFormatterFileAction"
+                    class="com.github.walrussoup.tailwindformatternext.actions.TailwindFormatFileAction"/>
+            <action id="TailwindFormatterProjectAction"
+                    class="com.github.walrussoup.tailwindformatternext.actions.TailwindFormatProjectAction"/>
+        </group>
+    </actions>
 </idea-plugin>
