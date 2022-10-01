@@ -6,15 +6,14 @@
 
     <depends>com.intellij.modules.platform</depends>
 
-    <!--
+
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.walrussoup.tailwindformatternext.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.walrussoup.tailwindformatternext.services.MyProjectService"/>
+        <statusBarWidgetFactory id="TailwindFormatterWidget" order="after writeActionWidget" implementation="com.github.walrussoup.tailwindformatternext.ui.TailwindFormatterStatusBarFactory" />
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.walrussoup.tailwindformatternext.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+<!--        <listener class="com.github.walrussoup.tailwindformatternext.listeners.MyProjectManagerListener"-->
+<!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
     </applicationListeners>
     -->
 
@@ -25,9 +24,11 @@
                icon="com.github.walrussoup.tailwindformatternext.icons.TailwindFormatterIcons.DefaultIcon">
             <add-to-group group-id="CodeFormatGroup" anchor="last"/>
             <action id="TailwindFormatterFileAction"
-                    class="com.github.walrussoup.tailwindformatternext.actions.TailwindFormatFileAction"/>
+                    class="com.github.walrussoup.tailwindformatternext.actions.FormatFileAction"/>
             <action id="TailwindFormatterProjectAction"
-                    class="com.github.walrussoup.tailwindformatternext.actions.TailwindFormatProjectAction"/>
+                    class="com.github.walrussoup.tailwindformatternext.actions.FormatProjectAction"/>
+            <action id="TailwindFormatGenerateDefaultConfigAction"
+                    class="com.github.walrussoup.tailwindformatternext.actions.GenerateDefaultConfigAction"/>
         </group>
     </actions>
 </idea-plugin>

@@ -3,6 +3,7 @@ package com.github.walrussoup.tailwindformatternext.actions
 import com.github.walrussoup.tailwindformatternext.support.TailwindParser
 import com.github.walrussoup.tailwindformatternext.support.TailwindSorter
 import com.github.walrussoup.tailwindformatternext.support.TailwindUtility
+import com.github.walrussoup.tailwindformatternext.ui.TailwindFormatterStatusBarWidget
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -15,13 +16,14 @@ import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
 
 
-class TailwindFormatFileAction : AnAction("Format Current File")
+class FormatFileAction : AnAction("Format Current File")
 {
-    private val LOG = logger<TailwindFormatProjectAction>()
+    private val LOG = logger<FormatProjectAction>()
     var isCustomConfiguration = false
 
     override fun actionPerformed(e: AnActionEvent) {
         LOG.info("Invoking format action");
+        TailwindFormatterStatusBarWidget.updateText("Starting...", "Starting Formatter");
         // get current virtual file
         val currentFile : VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE);
         if(currentFile === null) {
@@ -36,6 +38,7 @@ class TailwindFormatFileAction : AnAction("Format Current File")
         val body = parser.processBody(document.text);
         LOG.info("Writing sorted output");
         WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
+        TailwindFormatterStatusBarWidget.updateText("Finished", "Finished Formatting ${currentFile.name}");
     }
 
     private fun getClassOrder(project: Project): List<String> {

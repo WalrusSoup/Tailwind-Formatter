@@ -3,31 +3,29 @@ package com.github.walrussoup.tailwindformatternext.actions
 import com.github.walrussoup.tailwindformatternext.support.TailwindParser
 import com.github.walrussoup.tailwindformatternext.support.TailwindSorter
 import com.github.walrussoup.tailwindformatternext.support.TailwindUtility
+import com.github.walrussoup.tailwindformatternext.ui.TailwindFormatterStatusBarWidget
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.command.WriteCommandAction
-import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.diagnostic.logger
-import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.PsiFile
 import com.intellij.psi.search.FilenameIndex
-import com.intellij.psi.search.FilenameIndex.getAllFilesByExt
 import com.intellij.psi.search.GlobalSearchScope
-import javax.swing.Icon
 
-class TailwindFormatProjectAction : AnAction("Format Project")
+class FormatProjectAction : AnAction("Format Project")
 {
-    private val LOG = logger<TailwindFormatProjectAction>()
+    private val LOG = logger<FormatProjectAction>()
     private val extensions = listOf<String>("vue","blade","jsx","js","html")
     var isCustomConfiguration = false
 
     override fun actionPerformed(e: AnActionEvent)
     {
+        TailwindFormatterStatusBarWidget.updateText("Starting", "Starting Project Wide Format");
+
         LOG.info("Invoking project-wide formatting");
         val project = e.project;
         if(project == null) {
@@ -42,7 +40,7 @@ class TailwindFormatProjectAction : AnAction("Format Project")
         val allFiles = getListOfAllProjectVFiles(project);
         LOG.info("${allFiles.size} all files discovered")
         LOG.info(extensions.toString());
-
+        var fileCount = 0;
         allFiles.forEach {
             if(it.extension == null) {
                 return@forEach;
@@ -59,7 +57,11 @@ class TailwindFormatProjectAction : AnAction("Format Project")
             }
             val body = parser.processBody(document.text);
             WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
+            TailwindFormatterStatusBarWidget.updateText("Running", "Formatting ${it.name}");
+            fileCount++;
         }
+
+        TailwindFormatterStatusBarWidget.updateText("Finished Project Format", "Finished formatting $fileCount files.");
     }
 
     override fun update(e: AnActionEvent)
@@ -68,7 +70,7 @@ class TailwindFormatProjectAction : AnAction("Format Project")
         e.presentation.isEnabledAndVisible = project != null
     }
 
-    // this don't work and I don't know why
+    // this doesn't work and I don't know why
     fun getListOfProjectVirtualFilesByExt(project: Project, caseSensitivity: Boolean = true, extName: String = "vue"): MutableCollection<VirtualFile> {
         val scope = GlobalSearchScope.projectScope(project)
         return FilenameIndex.getAllFilesByExt(project, extName, scope)
