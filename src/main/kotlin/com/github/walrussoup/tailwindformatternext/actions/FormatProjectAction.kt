@@ -19,7 +19,7 @@ import com.intellij.psi.search.GlobalSearchScope
 class FormatProjectAction : AnAction("Format Project")
 {
     private val LOG = logger<FormatProjectAction>()
-    private val extensions = listOf<String>("vue","blade","jsx","js","html")
+    private val extensions = listOf<String>("vue","blade","jsx","ts","tsx","js","html")
     var isCustomConfiguration = false
 
     override fun actionPerformed(e: AnActionEvent)
