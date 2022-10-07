@@ -1,7 +1,7 @@
 # Tailwind Formatter
-
+<!-- Plugin description -->
 Tailwind formatter is a port of [Headwind](https://github.com/heybourn/headwind) for use with Intellij/Phpstorm/Webstorm. It enforces consistent ordering of classes by parsing your code and reprinting class tags to follow a given order.
-
+<!-- Plugin description end -->
 ## Download
 
 [Download Here](https://plugins.jetbrains.com/plugin/13376-tailwind-formatter/)
