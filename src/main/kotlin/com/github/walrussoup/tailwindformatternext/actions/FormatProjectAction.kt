@@ -76,6 +76,9 @@ class FormatProjectAction : AnAction("Format Project")
         return FilenameIndex.getAllFilesByExt(project, extName, scope)
     }
 
+    /**
+     * Builds a collection, containing of all files in the project.
+     */
     fun getListOfAllProjectVFiles(project: Project): MutableCollection<VirtualFile> {
         val collection = mutableListOf<VirtualFile>()
         ProjectFileIndex.getInstance(project).iterateContent {
