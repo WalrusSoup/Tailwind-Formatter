@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>com.myoutdesk.tailwind_formatter</id>
     <name>Tailwind Formatter</name>
-    <vendor email="#" url="https://github.com/WalrusSoup">Tailwind Formatter</vendor>
+    <vendor email="#" url="https://github.com/WalrusSoup">WalrusSoup</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
