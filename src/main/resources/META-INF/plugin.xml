@@ -1,8 +1,8 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.walrussoup.tailwindformatternext</id>
-    <name>tailwind-formatter-next</name>
-    <vendor>walrussoup</vendor>
+    <id>com.github.walrussoup.tailwind_formatter</id>
+    <name>Tailwind Formatter</name>
+    <vendor email="#" url="https://github.com/WalrusSoup">Tailwind Formatter</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -11,11 +11,11 @@
         <statusBarWidgetFactory id="TailwindFormatterWidget" order="after writeActionWidget" implementation="com.github.walrussoup.tailwindformatternext.ui.TailwindFormatterStatusBarFactory" />
     </extensions>
 
+
     <applicationListeners>
 <!--        <listener class="com.github.walrussoup.tailwindformatternext.listeners.MyProjectManagerListener"-->
 <!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
     </applicationListeners>
-    -->
 
     <actions>
         <group id="org.intellij.sdk.action.GroupedActions"
@@ -24,7 +24,9 @@
                icon="com.github.walrussoup.tailwindformatternext.icons.TailwindFormatterIcons.DefaultIcon">
             <add-to-group group-id="CodeFormatGroup" anchor="last"/>
             <action id="TailwindFormatterFileAction"
-                    class="com.github.walrussoup.tailwindformatternext.actions.FormatFileAction"/>
+                    class="com.github.walrussoup.tailwindformatternext.actions.FormatFileAction">
+                <keyboard-shortcut keymap="$default" first-keystroke="shift meta H"/>
+            </action>
             <action id="TailwindFormatterProjectAction"
                     class="com.github.walrussoup.tailwindformatternext.actions.FormatProjectAction"/>
             <action id="TailwindFormatGenerateDefaultConfigAction"
