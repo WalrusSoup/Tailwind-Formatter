@@ -12,6 +12,10 @@ class TailwindUtility {
         logger.info("Loading default class order")
         try {
             val inputStream = TailwindUtility::class.java.getResourceAsStream("/classes.txt")
+            if(inputStream == null) {
+                logger.error("Error resolving class order from resources")
+                return
+            }
             classOrder = BufferedReader(InputStreamReader(inputStream)).lines().collect(Collectors.toList())
         } catch (e: Exception) {
             // I should probably do something here on the off chance we're missing that file

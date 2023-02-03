@@ -35,7 +35,7 @@ class FormatProjectAction : AnAction("Format Project")
         }
         val parser = TailwindParser(TailwindSorter(getClassOrder(project), isCustomConfiguration))
         LOG.info("Discovering vue files...");
-        val files = getListOfProjectVirtualFilesByExt(project, false, "vue");
+        val files = getListOfProjectVirtualFilesByExt(project, "vue");
         LOG.info("${files.size} discovered")
         val allFiles = getListOfAllProjectVFiles(project);
         LOG.info("${allFiles.size} all files discovered")
@@ -71,7 +71,7 @@ class FormatProjectAction : AnAction("Format Project")
     }
 
     // this doesn't work and I don't know why
-    fun getListOfProjectVirtualFilesByExt(project: Project, caseSensitivity: Boolean = true, extName: String = "vue"): MutableCollection<VirtualFile> {
+    fun getListOfProjectVirtualFilesByExt(project: Project,  extName: String = "vue"): MutableCollection<VirtualFile> {
         val scope = GlobalSearchScope.projectScope(project)
         return FilenameIndex.getAllFilesByExt(project, extName, scope)
     }
