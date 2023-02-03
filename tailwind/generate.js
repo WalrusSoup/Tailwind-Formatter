@@ -6,14 +6,9 @@ const { execSync } = require("child_process");
 // execSync("npx tailwindcss build -o classes.css");
 
 const classesInOrder = [];
-const omitCompoundClasses = [
-	':not',
-	':where',
-	'>',
-	'*',
-	','
-];
+const omitCompoundClasses = [':not',':where', '>', '*', ','];
 console.log('starting to write the final class');
+
 fs.readFileSync('classes.css', 'utf-8').split('\n').forEach(line => {
 	if(!line.startsWith('.')) {
 		return;
