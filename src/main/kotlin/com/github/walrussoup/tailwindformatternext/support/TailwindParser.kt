@@ -14,7 +14,11 @@ class TailwindParser(private val sorter: TailwindSorter) {
         while (matcher.find()) {
             val isApplyStatement: Boolean
             val originalClassList: String
-            val quotes = matcher.group("quotes")
+            var quotes = matcher.group("quotes");
+            if(quotes == null) {
+                quotes = "";
+            }
+
             // Grab the inner contents of the class list for deduplication and arranging
             if (matcher.group("classList1") != null && !matcher.group("classList1").isEmpty()) {
                 isApplyStatement = false
@@ -43,8 +47,9 @@ class TailwindParser(private val sorter: TailwindSorter) {
     }
 
     private fun encloseClassList(classList: String, isApplyStatement: Boolean, quotes: String): String {
-        return if (isApplyStatement) {
-            "@apply $classList;"
-        } else quotes + classList + quotes
+        if (isApplyStatement) {
+            return "@apply $classList;"
+        }
+        return "$quotes$classList$quotes";
     }
 }

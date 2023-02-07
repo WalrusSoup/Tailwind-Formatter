@@ -55,6 +55,7 @@ class FormatProjectAction : AnAction("Format Project")
                 LOG.info("${it.canonicalPath} failed opening, skipping?");
                 return@forEach;
             }
+            LOG.info("Processing ${it.name}...");
             val body = parser.processBody(document.text);
             WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
             TailwindFormatterStatusBarWidget.updateText("Running", "Formatting ${it.name}");
