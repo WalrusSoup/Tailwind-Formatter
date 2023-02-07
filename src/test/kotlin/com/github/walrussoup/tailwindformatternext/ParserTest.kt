@@ -23,7 +23,7 @@ class ParserTest : BasePlatformTestCase()
 
     fun testCanSortPureCssFiles() {
         val utility = TailwindUtility();
-        utility.loadDefaultClassOrder();
+        utility.classOrder = listOf("first", "sec_ond", "THIRD", "last", "group-focus:la-st", "sm:first", "lg:hover:last");
 
         val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, false))
 
