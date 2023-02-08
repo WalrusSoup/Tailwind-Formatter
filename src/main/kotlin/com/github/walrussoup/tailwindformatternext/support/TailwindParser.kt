@@ -4,7 +4,7 @@ import java.util.*
 import java.util.regex.Pattern
 
 class TailwindParser(private val sorter: TailwindSorter) {
-    private val classNamesRegex = "[_a-zA-Z0-9\\s-:/]+"
+    private val classNamesRegex = "[_a-zA-Z0-9\\s-:/~&\\[\\].>]+"
     private val regex = "\\bclass(?:Name)*\\s*=\\s*(?<quotes>[\"'])(?<classList1>$classNamesRegex)[\"']|@apply (?<classList2>$classNamesRegex);"
 
     fun processBody(body: String): String {
