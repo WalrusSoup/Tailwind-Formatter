@@ -35,6 +35,7 @@ class ParserTest : BasePlatformTestCase()
             assertEquals(expected, tailwindParser.processBody(input));
         } catch (e: Exception) {
             println(e.message)
+            throw e;
         }
     }
 
@@ -53,18 +54,36 @@ class ParserTest : BasePlatformTestCase()
             assertEquals(expected, tailwindParser.processBody(input));
         } catch (e: Exception) {
             println(e.message)
+            throw e;
         }
     }
 
-    fun testCanSortArbitraryVariants() {
+    fun testCanSortArbitraryVariantsOnLeftSide() {
         val utility = TailwindUtility();
         utility.loadDefaultClassOrder();
         val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, false))
 
         try {
             // read fixture file parser/custom-order-input.css
-            val input = myFixture.configureByFile("/parser/arbitrary-variant-input.vue").text
-            val expected = myFixture.configureByFile("/parser/arbitrary-variant-expected.vue").text
+            val input = myFixture.configureByFile("/parser/leading-arbitrary-variant-input.vue").text
+            val expected = myFixture.configureByFile("/parser/leading-arbitrary-variant-expected.vue").text
+
+            assertEquals(expected, tailwindParser.processBody(input));
+        } catch (e: Exception) {
+            println(e.message)
+            throw e;
+        }
+    }
+
+    fun testCanSortArbitraryVariantsOnRightSide() {
+        val utility = TailwindUtility();
+        utility.loadDefaultClassOrder();
+        val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, false))
+
+        try {
+            // read fixture file parser/custom-order-input.css
+            val input = myFixture.configureByFile("/parser/trailing-arbitrary-variant-input.vue").text
+            val expected = myFixture.configureByFile("/parser/trailing-arbitrary-variant-expected.vue").text
 
             assertEquals(expected, tailwindParser.processBody(input));
         } catch (e: Exception) {
@@ -87,6 +106,7 @@ class ParserTest : BasePlatformTestCase()
             assertEquals(expected, tailwindParser.processBody(input));
         } catch (e: Exception) {
             println(e.message)
+            throw e;
         }
     }
 
@@ -104,6 +124,7 @@ class ParserTest : BasePlatformTestCase()
             assertEquals(expected, tailwindParser.processBody(input));
         } catch (e: Exception) {
             println(e.message)
+            throw e;
         }
     }
 

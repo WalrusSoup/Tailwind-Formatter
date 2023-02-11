@@ -102,6 +102,22 @@ class SorterTest : BasePlatformTestCase() {
         }
     }
 
+    fun testArbitraryVariantsAreOrderedByClassOnLeftSideOfVariant()
+    {
+        val input = "p-4 xl:min-w-[75%] lg:min-w-[60%] col-span-3 w-full";
+        val expected = "col-span-3 w-full p-4 lg:min-w-[60%] xl:min-w-[75%]";
+
+        val utility = TailwindUtility()
+        utility.loadDefaultClassOrder()
+
+        val sorter = TailwindSorter(utility.classOrder, false)
+        val classes: List<String> = input.split(" ").toList();
+
+        classes.sortedWith(sorter).joinToString(" ").let {
+            assertEquals(expected, it)
+        }
+    }
+
     fun testCanSortArbitraryVariants() {
         val outOfOrderVariants = "w-5 h-5 [.peer:checked~&>.material-icons]:opacity-100 text-blue-400 dark:text-blue-100"
         val expectedOrder = "h-5 w-5 text-blue-400 dark:text-blue-100 [.peer:checked~&>.material-icons]:opacity-100"
