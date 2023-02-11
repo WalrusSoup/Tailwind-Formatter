@@ -21,20 +21,74 @@ class ParserTest : BasePlatformTestCase()
         return "src/test/testData"
     }
 
-    fun testCanSortPureCssFiles() {
+    fun testCanSortPureCssFilesWithCustomOrder() {
         val utility = TailwindUtility();
         utility.classOrder = listOf("first", "sec_ond", "THIRD", "last", "group-focus:la-st", "sm:first", "lg:hover:last");
 
         val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, false))
 
         try {
-            // read fixture file parser/input.css
-            val input = myFixture.configureByFile("/parser/input.css").text
-            val expected = myFixture.configureByFile("/parser/expected.css").text
+            // read fixture file parser/custom-order-input.css
+            val input = myFixture.configureByFile("/parser/custom-order-input.css").text
+            val expected = myFixture.configureByFile("/parser/custom-order-expected.css").text
 
             assertEquals(expected, tailwindParser.processBody(input));
         } catch (e: Exception) {
             println(e.message)
+            throw e;
+        }
+    }
+
+    fun testCanSortCssFilesWithTailwindDefaultOrder()
+    {
+        val utility = TailwindUtility();
+        utility.classOrder = listOf("first", "sec_ond", "THIRD", "last", "group-focus:la-st", "sm:first", "lg:hover:last");
+
+        val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, false))
+
+        try {
+            // read fixture file parser/custom-order-input.css
+            val input = myFixture.configureByFile("/parser/tailwind-order-input.css").text
+            val expected = myFixture.configureByFile("/parser/tailwind-order-expected.css").text
+
+            assertEquals(expected, tailwindParser.processBody(input));
+        } catch (e: Exception) {
+            println(e.message)
+            throw e;
+        }
+    }
+
+    fun testCanSortArbitraryVariantsOnLeftSide() {
+        val utility = TailwindUtility();
+        utility.loadDefaultClassOrder();
+        val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, false))
+
+        try {
+            // read fixture file parser/custom-order-input.css
+            val input = myFixture.configureByFile("/parser/leading-arbitrary-variant-input.vue").text
+            val expected = myFixture.configureByFile("/parser/leading-arbitrary-variant-expected.vue").text
+
+            assertEquals(expected, tailwindParser.processBody(input));
+        } catch (e: Exception) {
+            println(e.message)
+            throw e;
+        }
+    }
+
+    fun testCanSortArbitraryVariantsOnRightSide() {
+        val utility = TailwindUtility();
+        utility.loadDefaultClassOrder();
+        val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, false))
+
+        try {
+            // read fixture file parser/custom-order-input.css
+            val input = myFixture.configureByFile("/parser/trailing-arbitrary-variant-input.vue").text
+            val expected = myFixture.configureByFile("/parser/trailing-arbitrary-variant-expected.vue").text
+
+            assertEquals(expected, tailwindParser.processBody(input));
+        } catch (e: Exception) {
+            println(e.message)
+            throw e;
         }
     }
 
@@ -45,13 +99,14 @@ class ParserTest : BasePlatformTestCase()
         val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, true))
 
         try {
-            // read fixture file parser/input.css
+            // read fixture file parser/custom-order-input.css
             val input = myFixture.configureByFile("/parser/input.html").text
             val expected = myFixture.configureByFile("/parser/expected.html").text
 
             assertEquals(expected, tailwindParser.processBody(input));
         } catch (e: Exception) {
             println(e.message)
+            throw e;
         }
     }
 
@@ -62,13 +117,14 @@ class ParserTest : BasePlatformTestCase()
         val tailwindParser = TailwindParser(TailwindSorter(utility.classOrder, false))
 
         try {
-            // read fixture file parser/input.css
+            // read fixture file parser/custom-order-input.css
             val input = myFixture.configureByFile("/parser/input.vue").text
             val expected = myFixture.configureByFile("/parser/expected.vue").text
 
             assertEquals(expected, tailwindParser.processBody(input));
         } catch (e: Exception) {
             println(e.message)
+            throw e;
         }
     }
 

@@ -4,6 +4,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class TailwindSorter(classOrder: List<String>, isCustomConfiguration: Boolean) : Comparator<String> {
+    private val variantRegex = "^(.*)(:)([^:]*$)";
     private val classOrder: List<String>
     private val variantsStartAt: Int
     private var lastPosition = 0
@@ -88,10 +89,21 @@ class TailwindSorter(classOrder: List<String>, isCustomConfiguration: Boolean) :
         if (variantLocation == -1) {
             return 0
         }
-        // fish out the first variant to use as an anchor point
-        val variants = className.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        if (variants.isNotEmpty()) {
-            return (variantsStartAt + variantOrder.indexOf(variants[0]) * classOrder.size + calculateProperOrder(variants[1]))
+        // if the specific whole class is called out in the class list given, simply return that
+        if (classOrder.contains(className)) {
+            return classOrder.indexOf(className)
+        }
+        val variantParts = variantRegex.toRegex().find(className);
+        val variantApplied = variantParts?.groupValues?.get(1);
+        val classApplied = variantParts?.groupValues?.get(3);
+
+        if (variantApplied != null && classApplied != null) {
+            // if this variant is arbitrary, shove it to the back of the class list
+            if(variantApplied.contains("[")) {
+                return (variantsStartAt + variantOrder.size * classOrder.size + calculateProperOrder(classApplied));
+            }
+            // if its a variant with an existing order in the spec, keep that
+            return (variantsStartAt + variantOrder.indexOf(variantApplied) * classOrder.size + calculateProperOrder(classApplied))
         }
         return variantsStartAt;
     }
