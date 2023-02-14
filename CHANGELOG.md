@@ -1,7 +1,7 @@
-<!-- Keep a Changelog guide -> https://keepachangelog.com -->
-
-# tailwind-formatter-next Changelog
+# Tailwind Formatter Changelog
 
 ## [Unreleased]
+
+## [2.0.4]
 ### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- Performance enhancement: tasks now run in background threads with full progress indication

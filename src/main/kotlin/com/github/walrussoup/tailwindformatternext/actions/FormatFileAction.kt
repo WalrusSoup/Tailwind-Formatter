@@ -11,9 +11,13 @@ import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
+import org.jetbrains.annotations.NotNull
 
 
 class FormatFileAction : AnAction("Format Current File")
@@ -34,11 +38,16 @@ class FormatFileAction : AnAction("Format Current File")
         val project: Project = e.getRequiredData(CommonDataKeys.PROJECT);
         val document: Document = editor.document;
         LOG.info("Building Parser");
-        val parser = TailwindParser(TailwindSorter(getClassOrder(project), isCustomConfiguration))
-        val body = parser.processBody(document.text);
-        LOG.info("Writing sorted output");
-        WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
-        TailwindFormatterStatusBarWidget.updateText("Finished", "Finished Formatting ${currentFile.name}");
+
+        ProgressManager.getInstance().run(object : Task.Backgroundable(null, "Format file") {
+            override fun run(@NotNull progressIndicator: ProgressIndicator) {
+                val parser = TailwindParser(TailwindSorter(getClassOrder(project), isCustomConfiguration))
+                val body = parser.processBody(document.text);
+                LOG.info("Writing sorted output");
+                WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
+                TailwindFormatterStatusBarWidget.updateText("Finished", "Finished Formatting ${currentFile.name}");
+            }
+        })
     }
 
     private fun getClassOrder(project: Project): List<String> {
