@@ -6,13 +6,15 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.7.10"
+    id("org.jetbrains.kotlin.jvm") version "1.8.0"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.8.0"
+    id("org.jetbrains.intellij") version "1.12.0"
     // Gradle Changelog Plugin
-    id("org.jetbrains.changelog") version "1.3.1"
+    id("org.jetbrains.changelog") version "2.0.0"
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
+    // Gradle Kover Plugin
+    id("org.jetbrains.kotlinx.kover") version "0.6.1"
 }
 
 group = properties("pluginGroup")
@@ -23,7 +25,7 @@ repositories {
     mavenCentral()
 }
 
-// Set the JVM language level used to compile sources and generate files - Java 11 is required since 2020.3
+// Set the JVM language level used to compile sources and generate files - Java 17 is required since 2022.3
 kotlin {
     jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(11))

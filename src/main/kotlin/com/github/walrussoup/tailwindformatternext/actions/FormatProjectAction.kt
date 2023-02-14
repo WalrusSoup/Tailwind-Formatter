@@ -6,15 +6,21 @@ import com.github.walrussoup.tailwindformatternext.support.TailwindUtility
 import com.github.walrussoup.tailwindformatternext.ui.TailwindFormatterStatusBarWidget
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.runReadAction
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.search.FilenameIndex
 import com.intellij.psi.search.GlobalSearchScope
+import org.jetbrains.annotations.NotNull
 
 class FormatProjectAction : AnAction("Format Project")
 {
@@ -24,45 +30,60 @@ class FormatProjectAction : AnAction("Format Project")
 
     override fun actionPerformed(e: AnActionEvent)
     {
-        TailwindFormatterStatusBarWidget.updateText("Starting", "Starting Project Wide Format");
+        // Not using com.intellij.openapi.progress.runBackgroundableTask as we lose scope of the project
+        ProgressManager.getInstance().run(object : Task.Backgroundable(null, "Format file") {
+            override fun run(@NotNull progressIndicator: ProgressIndicator) {
+                val project = e.project;
+                if (project == null) {
+                    LOG.info("No project found, returning");
+                    return;
+                }
+                TailwindFormatterStatusBarWidget.updateText("Starting", "Starting Project Wide Format");
+                progressIndicator.isIndeterminate = false;
+                LOG.info("Invoking project-wide formatting");
+                val parser = TailwindParser(TailwindSorter(getClassOrder(project), isCustomConfiguration))
 
-        LOG.info("Invoking project-wide formatting");
-        val project = e.project;
-        if(project == null) {
-            LOG.info("No project found, returning");
+                // List all files in the project
+                val allFiles = kotlin.runCatching {
+                    runReadAction { getListOfAllProjectVFiles(project) }
+                }.getOrDefault(listOf<VirtualFile>());
 
-            return;
-        }
-        val parser = TailwindParser(TailwindSorter(getClassOrder(project), isCustomConfiguration))
-        LOG.info("Discovering vue files...");
-        val files = getListOfProjectVirtualFilesByExt(project, "vue");
-        LOG.info("${files.size} discovered")
-        val allFiles = getListOfAllProjectVFiles(project);
-        LOG.info("${allFiles.size} all files discovered")
-        LOG.info(extensions.toString());
-        var fileCount = 0;
-        allFiles.forEach {
-            if(it.extension == null) {
-                return@forEach;
-            }
-            if(!extensions.contains(it.extension)) {
-                LOG.info("Extension list does not contain: ${it.extension}")
-                return@forEach;
-            }
-            LOG.info("${it.canonicalPath} is valid for formatting");
-            val document = FileDocumentManager.getInstance().getDocument(it);
-            if(document == null) {
-                LOG.info("${it.canonicalPath} failed opening, skipping?");
-                return@forEach;
-            }
-            LOG.info("Processing ${it.name}...");
-            val body = parser.processBody(document.text);
-            WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
-            TailwindFormatterStatusBarWidget.updateText("Running", "Formatting ${it.name}");
-            fileCount++;
-        }
+                LOG.info("Found ${allFiles.size} files in project");
+                var fileCount = 0;
+                val totalFiles = allFiles.size;
 
-        TailwindFormatterStatusBarWidget.updateText("Finished Project Format", "Finished formatting $fileCount files.");
+                allFiles.forEach {
+                    if (progressIndicator.isCanceled) {
+                        LOG.info("User cancelled formatting");
+                        return@forEach;
+                    }
+                    if (it.extension == null || !extensions.contains(it.extension)) {
+                        return@forEach;
+                    }
+                    progressIndicator.text = "Checking ${it.name}";
+                    progressIndicator.fraction = fileCount.toDouble() / totalFiles.toDouble();
+                    LOG.info("${it.canonicalPath} is valid for formatting");
+
+                    val document = kotlin.runCatching {
+                        runReadAction { FileDocumentManager.getInstance().getDocument(it) }
+                    }.getOrDefault(null);
+
+                    if (document == null) {
+                        LOG.info("No document found for ${it.name}, skipping");
+                        return@forEach;
+                    }
+                    LOG.info("Processing ${it.name}...");
+                    val body = parser.processBody(document.text);
+                    WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
+                    TailwindFormatterStatusBarWidget.updateText("Running", "Formatting ${it.name}");
+                    fileCount++;
+                }
+                TailwindFormatterStatusBarWidget.updateText(
+                    "Finished Project Format",
+                    "Finished formatting $fileCount files."
+                );
+            }
+        });
     }
 
     override fun update(e: AnActionEvent)
@@ -80,14 +101,14 @@ class FormatProjectAction : AnAction("Format Project")
     /**
      * Builds a collection, containing of all files in the project.
      */
-    fun getListOfAllProjectVFiles(project: Project): MutableCollection<VirtualFile> {
+    fun getListOfAllProjectVFiles(project: Project): List<VirtualFile> {
         val collection = mutableListOf<VirtualFile>()
         ProjectFileIndex.getInstance(project).iterateContent {
             collection += it
             // Return true to process all the files (no early escape).
             true
         }
-        return collection
+        return collection.toList()
     }
 
     // TODO: This should not be copy pasted

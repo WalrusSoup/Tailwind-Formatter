@@ -1,1 +1,1 @@
-rootProject.name = "tailwind-formatter-next"
+rootProject.name = "Tailwind Formatter"
