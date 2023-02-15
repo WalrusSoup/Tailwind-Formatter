@@ -102,6 +102,14 @@ class TailwindSorter(classOrder: List<String>, isCustomConfiguration: Boolean) :
             if(variantApplied.contains("[")) {
                 return (variantsStartAt + variantOrder.size * classOrder.size + calculateProperOrder(classApplied));
             }
+            // split by : to see if there are two variants on the left
+            if (variantApplied.split(":").count() >= 2) {
+                // if there are two variants, split it by two and add them together to calculate the proper, newly formed offset of both variants
+                // This is 100% a guess where they should naturally be located
+                val firstVariant = variantApplied.split(":")[0]
+                val secondVariant = variantApplied.split(":")[1]
+                return (variantsStartAt + (variantOrder.indexOf(firstVariant) + variantOrder.indexOf(secondVariant)) * classOrder.size + calculateProperOrder(classApplied))
+            }
             // if its a variant with an existing order in the spec, keep that
             return (variantsStartAt + variantOrder.indexOf(variantApplied) * classOrder.size + calculateProperOrder(classApplied))
         }
