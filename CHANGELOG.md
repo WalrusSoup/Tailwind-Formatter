@@ -2,6 +2,6 @@
 
 ## [Unreleased]
 
-## [2.0.4]
+## [2.0.5]
 ### Added
-- Performance enhancement: tasks now run in background threads with full progress indication
+- Improved handling of double variants when using dark: such as `dark:hover:bg-red-500`

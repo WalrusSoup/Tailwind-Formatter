@@ -130,4 +130,18 @@ class SorterTest : BasePlatformTestCase() {
             assertEquals(expectedOrder, it)
         }
     }
+
+    fun testCanSortDoubleVariants() {
+        val outOfOrderVariants = "text-red-500 dark:disabled:bg-red-200 dark:hover:bg-red-500 font-semibold font-serif dark:font-thin dark:text-red-200 bg-red-500";
+        val expectedOrder = "bg-red-500 font-serif font-semibold text-red-500 dark:font-thin dark:text-red-200 dark:hover:bg-red-500 dark:disabled:bg-red-200";
+
+        val utility = TailwindUtility();
+        utility.loadDefaultClassOrder()
+
+        val sorter = TailwindSorter(utility.classOrder, false)
+        val classes: List<String> = outOfOrderVariants.split(" ").toList();
+        classes.sortedWith(sorter).joinToString(" ").let {
+            assertEquals(expectedOrder, it)
+        }
+    }
 }
