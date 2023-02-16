@@ -1,7 +1,8 @@
 # Tailwind Formatter Changelog
 
-## [Unreleased]
+## Unreleased
 
-## [2.0.5]
+## 2.0.5
+
 ### Added
 - Improved handling of double variants when using dark: such as `dark:hover:bg-red-500`
