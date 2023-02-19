@@ -19,7 +19,6 @@ import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.annotations.NotNull
 
-
 class FormatFileAction : AnAction("Format Current File")
 {
     private val LOG = logger<FormatProjectAction>()
@@ -28,19 +27,18 @@ class FormatFileAction : AnAction("Format Current File")
     override fun actionPerformed(e: AnActionEvent) {
         LOG.info("Invoking format action");
         TailwindFormatterStatusBarWidget.updateText("Starting...", "Starting Formatter");
-        // get current virtual file
-        val currentFile : VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE);
-        if(currentFile === null) {
-            LOG.info("No file open");
-            return;
-        }
-        val editor: Editor = e.getRequiredData(CommonDataKeys.EDITOR);
-        val project: Project = e.getRequiredData(CommonDataKeys.PROJECT);
-        val document: Document = editor.document;
-        LOG.info("Building Parser");
 
         ProgressManager.getInstance().run(object : Task.Backgroundable(null, "Format file") {
             override fun run(@NotNull progressIndicator: ProgressIndicator) {
+                val currentFile : VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE);
+                if(currentFile === null) {
+                    LOG.info("No file open");
+                    return;
+                }
+                LOG.info("Building Parser");
+                val editor: Editor = e.getRequiredData(CommonDataKeys.EDITOR);
+                val project: Project = e.getRequiredData(CommonDataKeys.PROJECT);
+                val document: Document = editor.document;
                 val parser = TailwindParser(TailwindSorter(getClassOrder(project), isCustomConfiguration))
                 val body = parser.processBody(document.text);
                 LOG.info("Writing sorted output");
