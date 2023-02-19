@@ -2,6 +2,6 @@
 
 ## [Unreleased]
 
-## [2.0.5]
+## [2.0.6]
 ### Added
-- Improved handling of double variants when using dark: such as `dark:hover:bg-red-500`
+- Improved single file format performance which would occassionally result in a long call warning on certain machines.
