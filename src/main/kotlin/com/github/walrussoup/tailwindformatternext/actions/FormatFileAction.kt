@@ -25,25 +25,25 @@ class FormatFileAction : AnAction("Format Current File")
     var isCustomConfiguration = false
 
     override fun actionPerformed(e: AnActionEvent) {
-        LOG.info("Invoking format action");
-        TailwindFormatterStatusBarWidget.updateText("Starting...", "Starting Formatter");
+        LOG.info("Invoking format action")
+        TailwindFormatterStatusBarWidget.updateText("Starting...", "Starting Formatter")
 
         ProgressManager.getInstance().run(object : Task.Backgroundable(null, "Format file") {
             override fun run(@NotNull progressIndicator: ProgressIndicator) {
-                val currentFile : VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE);
+                val currentFile : VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE)
                 if(currentFile === null) {
-                    LOG.info("No file open");
-                    return;
+                    LOG.info("No file open")
+                    return
                 }
-                LOG.info("Building Parser");
-                val editor: Editor = e.getRequiredData(CommonDataKeys.EDITOR);
-                val project: Project = e.getRequiredData(CommonDataKeys.PROJECT);
-                val document: Document = editor.document;
+                LOG.info("Building Parser")
+                val editor: Editor = e.getRequiredData(CommonDataKeys.EDITOR)
+                val project: Project = e.getRequiredData(CommonDataKeys.PROJECT)
+                val document: Document = editor.document
                 val parser = TailwindParser(TailwindSorter(getClassOrder(project), isCustomConfiguration))
-                val body = parser.processBody(document.text);
-                LOG.info("Writing sorted output");
+                val body = parser.processBody(document.text)
+                LOG.info("Writing sorted output")
                 WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
-                TailwindFormatterStatusBarWidget.updateText("Finished", "Finished Formatting ${currentFile.name}");
+                TailwindFormatterStatusBarWidget.updateText("Finished", "Finished Formatting ${currentFile.name}")
             }
         })
     }
@@ -54,10 +54,10 @@ class FormatFileAction : AnAction("Format Current File")
         if (configurationFile == null) {
             utility.loadDefaultClassOrder()
         } else {
-            isCustomConfiguration = true;
+            isCustomConfiguration = true
             utility.loadClassOrderFromFile(configurationFile)
         }
-        return utility.classOrder;
+        return utility.classOrder
     }
 
     override fun update(e: AnActionEvent)

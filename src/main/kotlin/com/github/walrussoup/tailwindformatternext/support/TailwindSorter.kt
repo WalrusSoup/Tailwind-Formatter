@@ -4,7 +4,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class TailwindSorter(classOrder: List<String>, isCustomConfiguration: Boolean) : Comparator<String> {
-    private val variantRegex = "^(.*)(:)([^:]*$)";
+    private val variantRegex = "^(.*)(:)([^:]*$)"
     private val classOrder: List<String>
     private val variantsStartAt: Int
     private var lastPosition = 0
@@ -93,14 +93,14 @@ class TailwindSorter(classOrder: List<String>, isCustomConfiguration: Boolean) :
         if (classOrder.contains(className)) {
             return classOrder.indexOf(className)
         }
-        val variantParts = variantRegex.toRegex().find(className);
-        val variantApplied = variantParts?.groupValues?.get(1);
-        val classApplied = variantParts?.groupValues?.get(3);
+        val variantParts = variantRegex.toRegex().find(className)
+        val variantApplied = variantParts?.groupValues?.get(1)
+        val classApplied = variantParts?.groupValues?.get(3)
 
         if (variantApplied != null && classApplied != null) {
             // if this variant is arbitrary, shove it to the back of the class list
             if(variantApplied.contains("[")) {
-                return (variantsStartAt + variantOrder.size * classOrder.size + calculateProperOrder(classApplied));
+                return (variantsStartAt + variantOrder.size * classOrder.size + calculateProperOrder(classApplied))
             }
             // split by : to see if there are two variants on the left
             if (variantApplied.split(":").count() >= 2) {
@@ -113,6 +113,6 @@ class TailwindSorter(classOrder: List<String>, isCustomConfiguration: Boolean) :
             // if its a variant with an existing order in the spec, keep that
             return (variantsStartAt + variantOrder.indexOf(variantApplied) * classOrder.size + calculateProperOrder(classApplied))
         }
-        return variantsStartAt;
+        return variantsStartAt
     }
 }

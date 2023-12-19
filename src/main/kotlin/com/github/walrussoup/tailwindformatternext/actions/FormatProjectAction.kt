@@ -6,7 +6,6 @@ import com.github.walrussoup.tailwindformatternext.support.TailwindUtility
 import com.github.walrussoup.tailwindformatternext.ui.TailwindFormatterStatusBarWidget
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.runReadAction
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.diagnostic.logger
@@ -33,57 +32,57 @@ class FormatProjectAction : AnAction("Format Project")
         // Not using com.intellij.openapi.progress.runBackgroundableTask as we lose scope of the project
         ProgressManager.getInstance().run(object : Task.Backgroundable(null, "Format file") {
             override fun run(@NotNull progressIndicator: ProgressIndicator) {
-                val project = e.project;
+                val project = e.project
                 if (project == null) {
-                    LOG.info("No project found, returning");
-                    return;
+                    LOG.info("No project found, returning")
+                    return
                 }
-                TailwindFormatterStatusBarWidget.updateText("Starting", "Starting Project Wide Format");
-                progressIndicator.isIndeterminate = false;
-                LOG.info("Invoking project-wide formatting");
+                TailwindFormatterStatusBarWidget.updateText("Starting", "Starting Project Wide Format")
+                progressIndicator.isIndeterminate = false
+                LOG.info("Invoking project-wide formatting")
                 val parser = TailwindParser(TailwindSorter(getClassOrder(project), isCustomConfiguration))
 
                 // List all files in the project
                 val allFiles = kotlin.runCatching {
                     runReadAction { getListOfAllProjectVFiles(project) }
-                }.getOrDefault(listOf<VirtualFile>());
+                }.getOrDefault(listOf<VirtualFile>())
 
-                LOG.info("Found ${allFiles.size} files in project");
-                var fileCount = 0;
-                val totalFiles = allFiles.size;
+                LOG.info("Found ${allFiles.size} files in project")
+                var fileCount = 0
+                val totalFiles = allFiles.size
 
                 allFiles.forEach {
                     if (progressIndicator.isCanceled) {
-                        LOG.info("User cancelled formatting");
-                        return@forEach;
+                        LOG.info("User cancelled formatting")
+                        return@forEach
                     }
                     if (it.extension == null || !extensions.contains(it.extension)) {
-                        return@forEach;
+                        return@forEach
                     }
-                    progressIndicator.text = "Checking ${it.name}";
-                    progressIndicator.fraction = fileCount.toDouble() / totalFiles.toDouble();
-                    LOG.info("${it.canonicalPath} is valid for formatting");
+                    progressIndicator.text = "Checking ${it.name}"
+                    progressIndicator.fraction = fileCount.toDouble() / totalFiles.toDouble()
+                    LOG.info("${it.canonicalPath} is valid for formatting")
 
                     val document = kotlin.runCatching {
                         runReadAction { FileDocumentManager.getInstance().getDocument(it) }
-                    }.getOrDefault(null);
+                    }.getOrDefault(null)
 
                     if (document == null) {
-                        LOG.info("No document found for ${it.name}, skipping");
-                        return@forEach;
+                        LOG.info("No document found for ${it.name}, skipping")
+                        return@forEach
                     }
-                    LOG.info("Processing ${it.name}...");
-                    val body = parser.processBody(document.text);
+                    LOG.info("Processing ${it.name}...")
+                    val body = parser.processBody(document.text)
                     WriteCommandAction.runWriteCommandAction(project) { document.setText(body) }
-                    TailwindFormatterStatusBarWidget.updateText("Running", "Formatting ${it.name}");
-                    fileCount++;
+                    TailwindFormatterStatusBarWidget.updateText("Running", "Formatting ${it.name}")
+                    fileCount++
                 }
                 TailwindFormatterStatusBarWidget.updateText(
                     "Finished Project Format",
                     "Finished formatting $fileCount files."
-                );
+                )
             }
-        });
+        })
     }
 
     override fun update(e: AnActionEvent)
@@ -118,9 +117,9 @@ class FormatProjectAction : AnAction("Format Project")
         if (configurationFile == null) {
             utility.loadDefaultClassOrder()
         } else {
-            isCustomConfiguration = true;
+            isCustomConfiguration = true
             utility.loadClassOrderFromFile(configurationFile)
         }
-        return utility.classOrder;
+        return utility.classOrder
     }
 }

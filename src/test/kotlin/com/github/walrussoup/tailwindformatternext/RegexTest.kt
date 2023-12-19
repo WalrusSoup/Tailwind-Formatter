@@ -24,90 +24,90 @@ class RegexTest : BasePlatformTestCase()
     }
 
     fun testClassRegexCanSeeTailwindClasses() {
-        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex";
-        var regex : String = CssHelper.getTailwindClassesRegex();
+        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex"
+        var regex : String = CssHelper.getTailwindClassesRegex()
 
-        val pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        val matcher = pattern.matcher(tailwindClasses);
+        val pattern = Pattern.compile(regex, Pattern.MULTILINE)
+        val matcher = pattern.matcher(tailwindClasses)
 
         // it should match the entire block as valid tailwindcss classes
-        assertEquals(1, matcher.results().count());
+        assertEquals(1, matcher.results().count())
     }
 
     fun testClassRegexCanSeeTailwindClassesWithPseudoClasses() {
-        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex group-focus:rounded";
-        var regex : String = CssHelper.getTailwindClassesRegex();
+        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex group-focus:rounded"
+        var regex : String = CssHelper.getTailwindClassesRegex()
 
-        val pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        val matcher = pattern.matcher(tailwindClasses);
+        val pattern = Pattern.compile(regex, Pattern.MULTILINE)
+        val matcher = pattern.matcher(tailwindClasses)
 
         // it should match the entire block as valid tailwindcss classes
-        assertEquals(1, matcher.results().count());
+        assertEquals(1, matcher.results().count())
     }
 
     fun testClassRegexCanSeeTailwindClassesWithMediaQueries() {
-        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded";
-        var regex : String = CssHelper.getTailwindClassesRegex();
+        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded"
+        var regex : String = CssHelper.getTailwindClassesRegex()
 
-        val pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        val matcher = pattern.matcher(tailwindClasses);
+        val pattern = Pattern.compile(regex, Pattern.MULTILINE)
+        val matcher = pattern.matcher(tailwindClasses)
 
         // it should match the entire block as valid tailwindcss classes
-        assertEquals(1, matcher.results().count());
+        assertEquals(1, matcher.results().count())
     }
 
     fun testClassRegexCanSeeTailwindClassesWithMediaQueriesAndPseudoClasses() {
-        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded";
-        var regex : String = CssHelper.getTailwindClassesRegex();
+        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded"
+        var regex : String = CssHelper.getTailwindClassesRegex()
 
-        val pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        val matcher = pattern.matcher(tailwindClasses);
+        val pattern = Pattern.compile(regex, Pattern.MULTILINE)
+        val matcher = pattern.matcher(tailwindClasses)
 
         // it should match the entire block as valid tailwindcss classes
-        assertEquals(1, matcher.results().count());
+        assertEquals(1, matcher.results().count())
     }
 
     fun testClassRegexCanSeeTailwindClassesWithMediaQueriesAndPseudoClassesAndVariants() {
-        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded dark:hover:rounded";
-        var regex : String = CssHelper.getTailwindClassesRegex();
+        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded dark:hover:rounded"
+        var regex : String = CssHelper.getTailwindClassesRegex()
 
-        val pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        val matcher = pattern.matcher(tailwindClasses);
+        val pattern = Pattern.compile(regex, Pattern.MULTILINE)
+        val matcher = pattern.matcher(tailwindClasses)
 
         // it should match the entire block as valid tailwindcss classes
-        assertEquals(1, matcher.results().count());
+        assertEquals(1, matcher.results().count())
     }
 
     fun testClassRegexCanSeeTailwindClassesWithMediaQueriesAndPseudoClassesAndVariantsAndGrouping() {
-        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded dark:hover:rounded group-hover:rounded";
-        var regex : String = CssHelper.getTailwindClassesRegex();
+        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded dark:hover:rounded group-hover:rounded"
+        var regex : String = CssHelper.getTailwindClassesRegex()
 
-        val pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        val matcher = pattern.matcher(tailwindClasses);
+        val pattern = Pattern.compile(regex, Pattern.MULTILINE)
+        val matcher = pattern.matcher(tailwindClasses)
 
         // it should match the entire block as valid tailwindcss classes
-        assertEquals(1, matcher.results().count());
+        assertEquals(1, matcher.results().count())
     }
 
     fun testClassRegexCanSeeTailwindClassesWithMediaQueriesAndPseudoClassesAndTrailingArbitraryVariants() {
-        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded dark:hover:rounded group-hover:rounded group-focus:rounded max-w-[75%]";
-        var regex : String = CssHelper.getTailwindClassesRegex();
+        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded dark:hover:rounded group-hover:rounded group-focus:rounded max-w-[75%]"
+        var regex : String = CssHelper.getTailwindClassesRegex()
 
-        val pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        val matcher = pattern.matcher(tailwindClasses);
+        val pattern = Pattern.compile(regex, Pattern.MULTILINE)
+        val matcher = pattern.matcher(tailwindClasses)
 
         // it should match the entire block as valid tailwindcss classes
-        assertEquals(1, matcher.results().count());
+        assertEquals(1, matcher.results().count())
     }
 
     fun testClassRegexCanSeeTailwindClassesWithMediaQueriesAndPseudoClassesAndLeadingArbitraryVariants() {
-        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded dark:hover:rounded group-hover:rounded group-focus:rounded [.peer:checked~&>.material-icons]:opacity-100";
-        var regex : String = CssHelper.getTailwindClassesRegex();
+        var tailwindClasses : String = "relative mt-2 overflow-hidden rounded bg-white text-sm shadow dark:bg-zinc-900 md:flex sm:group-focus:rounded md:hover:rounded dark:hover:rounded group-hover:rounded group-focus:rounded [.peer:checked~&>.material-icons]:opacity-100"
+        var regex : String = CssHelper.getTailwindClassesRegex()
 
-        val pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        val matcher = pattern.matcher(tailwindClasses);
+        val pattern = Pattern.compile(regex, Pattern.MULTILINE)
+        val matcher = pattern.matcher(tailwindClasses)
 
         // it should match the entire block as valid tailwindcss classes
-        assertEquals(1, matcher.results().count());
+        assertEquals(1, matcher.results().count())
     }
 }

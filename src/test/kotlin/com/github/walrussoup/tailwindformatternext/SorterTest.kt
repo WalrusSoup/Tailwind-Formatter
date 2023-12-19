@@ -14,11 +14,11 @@ class SorterTest : BasePlatformTestCase() {
         val outOfOrderVariants = "mx-auto container py-4 xl:bg-blue-200 md:bg-blue-800 bg-blue-500 dark:bg-blue-600 lg:bg-blue-900 sm:bg-blue-700"
         // This expected order is per the official docs & tested via play.tailwindcss.com
         val expectedOrder = "container mx-auto bg-blue-500 py-4 dark:bg-blue-600 sm:bg-blue-700 md:bg-blue-800 lg:bg-blue-900 xl:bg-blue-200"
-        val utility = TailwindUtility();
+        val utility = TailwindUtility()
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = outOfOrderVariants.split(" ").toList();
+        val classes: List<String> = outOfOrderVariants.split(" ").toList()
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expectedOrder, it)
         }
@@ -32,7 +32,7 @@ class SorterTest : BasePlatformTestCase() {
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = input.split(" ").toList();
+        val classes: List<String> = input.split(" ").toList()
 
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expected, it)
@@ -47,7 +47,7 @@ class SorterTest : BasePlatformTestCase() {
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = input.split(" ").toList();
+        val classes: List<String> = input.split(" ").toList()
 
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expected, it)
@@ -63,7 +63,7 @@ class SorterTest : BasePlatformTestCase() {
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = input.split(" ").toList();
+        val classes: List<String> = input.split(" ").toList()
 
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expected, it)
@@ -79,7 +79,7 @@ class SorterTest : BasePlatformTestCase() {
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = input.split(" ").toList();
+        val classes: List<String> = input.split(" ").toList()
 
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expected, it)
@@ -95,7 +95,7 @@ class SorterTest : BasePlatformTestCase() {
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = input.split(" ").toList();
+        val classes: List<String> = input.split(" ").toList()
 
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expected, it)
@@ -104,14 +104,14 @@ class SorterTest : BasePlatformTestCase() {
 
     fun testArbitraryVariantsAreOrderedByClassOnLeftSideOfVariant()
     {
-        val input = "p-4 xl:min-w-[75%] lg:min-w-[60%] col-span-3 w-full";
-        val expected = "col-span-3 w-full p-4 lg:min-w-[60%] xl:min-w-[75%]";
+        val input = "p-4 xl:min-w-[75%] lg:min-w-[60%] col-span-3 w-full"
+        val expected = "col-span-3 w-full p-4 lg:min-w-[60%] xl:min-w-[75%]"
 
         val utility = TailwindUtility()
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = input.split(" ").toList();
+        val classes: List<String> = input.split(" ").toList()
 
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expected, it)
@@ -121,25 +121,25 @@ class SorterTest : BasePlatformTestCase() {
     fun testCanSortArbitraryVariants() {
         val outOfOrderVariants = "w-5 h-5 [.peer:checked~&>.material-icons]:opacity-100 text-blue-400 dark:text-blue-100"
         val expectedOrder = "h-5 w-5 text-blue-400 dark:text-blue-100 [.peer:checked~&>.material-icons]:opacity-100"
-        val utility = TailwindUtility();
+        val utility = TailwindUtility()
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = outOfOrderVariants.split(" ").toList();
+        val classes: List<String> = outOfOrderVariants.split(" ").toList()
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expectedOrder, it)
         }
     }
 
     fun testCanSortDoubleVariants() {
-        val outOfOrderVariants = "text-red-500 dark:disabled:bg-red-200 dark:hover:bg-red-500 font-semibold font-serif dark:font-thin dark:text-red-200 bg-red-500";
-        val expectedOrder = "bg-red-500 font-serif font-semibold text-red-500 dark:font-thin dark:text-red-200 dark:hover:bg-red-500 dark:disabled:bg-red-200";
+        val outOfOrderVariants = "text-red-500 dark:disabled:bg-red-200 dark:hover:bg-red-500 font-semibold font-serif dark:font-thin dark:text-red-200 bg-red-500"
+        val expectedOrder = "bg-red-500 font-serif font-semibold text-red-500 dark:font-thin dark:text-red-200 dark:hover:bg-red-500 dark:disabled:bg-red-200"
 
-        val utility = TailwindUtility();
+        val utility = TailwindUtility()
         utility.loadDefaultClassOrder()
 
         val sorter = TailwindSorter(utility.classOrder, false)
-        val classes: List<String> = outOfOrderVariants.split(" ").toList();
+        val classes: List<String> = outOfOrderVariants.split(" ").toList()
         classes.sortedWith(sorter).joinToString(" ").let {
             assertEquals(expectedOrder, it)
         }

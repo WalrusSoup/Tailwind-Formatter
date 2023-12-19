@@ -12,9 +12,9 @@ class TailwindParser(private val sorter: TailwindSorter) {
         while (matcher.find()) {
             val isApplyStatement: Boolean
             val originalClassList: String
-            var quotes = matcher.group("quotes");
+            var quotes = matcher.group("quotes")
             if(quotes == null) {
-                quotes = "";
+                quotes = ""
             }
 
             // Grab the inner contents of the class list for deduplication and arranging
@@ -48,6 +48,6 @@ class TailwindParser(private val sorter: TailwindSorter) {
         if (isApplyStatement) {
             return "@apply $classList;"
         }
-        return "$quotes$classList$quotes";
+        return "$quotes$classList$quotes"
     }
 }

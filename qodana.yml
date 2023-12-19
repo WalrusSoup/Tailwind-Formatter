@@ -4,8 +4,10 @@
 version: 1.0
 profile:
   name: qodana.recommended
+linter: jetbrains/qodana-jvm-android:2023.3-eap
 exclude:
   - name: All
     paths:
       - .qodana
       - tailwind
+      - src/test

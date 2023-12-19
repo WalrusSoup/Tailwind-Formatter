@@ -9,7 +9,7 @@ class TailwindFormatterIcons {
         val DefaultIcon: Icon = IconLoader.getIcon("/icons/icon.svg", TailwindFormatterIcons::class.java)
         @JvmStatic
         fun getDefaultIcon(): Icon {
-            return DefaultIcon;
+            return DefaultIcon
         }
     }
 }
