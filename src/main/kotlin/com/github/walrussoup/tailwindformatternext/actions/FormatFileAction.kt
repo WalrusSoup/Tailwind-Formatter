@@ -4,6 +4,7 @@ import com.github.walrussoup.tailwindformatternext.support.TailwindParser
 import com.github.walrussoup.tailwindformatternext.support.TailwindSorter
 import com.github.walrussoup.tailwindformatternext.support.TailwindUtility
 import com.github.walrussoup.tailwindformatternext.ui.TailwindFormatterStatusBarWidget
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -64,5 +65,9 @@ class FormatFileAction : AnAction("Format Current File")
     {
         val project: Project? = e.project
         e.presentation.isEnabledAndVisible = project != null
+    }
+
+    override fun getActionUpdateThread(): ActionUpdateThread {
+        return ActionUpdateThread.EDT
     }
 }

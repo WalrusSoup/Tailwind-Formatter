@@ -2,14 +2,12 @@ package com.github.walrussoup.tailwindformatternext.listeners
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.project.ProjectManagerListener
+import com.intellij.openapi.startup.ProjectActivity
 import com.github.walrussoup.tailwindformatternext.services.MyProjectService
 
-internal class MyProjectManagerListener : ProjectManagerListener {
+internal class MyProjectManagerListener : ProjectActivity {
 
-    override fun projectOpened(project: Project) {
+    override suspend fun execute(project: Project) {
         project.service<MyProjectService>()
-//        System.getenv("CI")
-            ?: TODO("Don't forget to remove all non-needed sample code files with their corresponding registration entries in `plugin.xml`.")
     }
 }
