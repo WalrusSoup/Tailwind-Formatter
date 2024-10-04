@@ -13,8 +13,7 @@
 
 
     <applicationListeners>
-<!--        <listener class="com.github.walrussoup.tailwindformatternext.listeners.MyProjectManagerListener"-->
-<!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
+<!--        <projectService serviceImplementation="com.github.walrussoup.tailwindformatternext.listeners.MyProjectManagerListener"/>-->
     </applicationListeners>
 
     <actions>
