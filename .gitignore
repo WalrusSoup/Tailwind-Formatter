@@ -1,4 +1,5 @@
 .gradle
-.idea
+.idea/compiler.xml
+.idea/jarRepositories.xml
 .qodana
 build
