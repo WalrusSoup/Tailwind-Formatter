@@ -1,5 +1,5 @@
-rootProject.name = "Tailwind Formatter"
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+}
 
-plugins { 
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0" 
-} 
+rootProject.name = "Tailwind Formatter"
