@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [2.0.16]
+### Changed
+- Updated to Gradle 9.3.1, IntelliJ Platform Gradle Plugin 2.11.0, Kotlin 2.3.0
+- Updated platform version to 2025.3.2 with compatibility through build 253.*
+
 ## [2.0.15]
 ### Changed
 - Updated plugin to ensure compatibility with IntelliJ IDEA 2025.2.* (build 252.*)
