@@ -102,7 +102,7 @@ intellijPlatform {
 
     pluginVerification {
         ides {
-            ide(providers.gradleProperty("platformVersion"))
+            ide(providers.gradleProperty("platformVersion").map { "IC-$it" })
         }
     }
 }
